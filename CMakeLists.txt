@@ -6,10 +6,5 @@ include(CMakeFuncs/functions.cmake)
 
 add_subdirectory(lib)
 add_subdirectory(exe)
-
-option(BTEST "build test?" OFF)
-
-if(BTEST)
-    add_subdirectory(GTests)
-    add_subdirectory(test_main)
-endif()
+	add_subdirectory(gtest)
+	add_subdirectory(test)

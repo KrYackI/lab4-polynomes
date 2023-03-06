@@ -1,26 +1,31 @@
 #pragma once
 
+
+const extern int lb; 
+const extern int p;
+
+
+template<typename T>
 struct link
 {
-	double mult;
-	int pow;
+	T val;
 	link* next;
-	link(double m, int p, link* l = nullptr)
+	link(T _v = T(), link* l = nullptr)
 	{
-		mult = m;
-		pow = p;
+		val = _v;
 		next = l;
 	}
 };
 
+template<typename T>
 class list
 {
 protected:
-	link* start;
-	link* end;
-	void addlast(double m, int p)
+	link<T>* start;
+	link<T>* end;
+	void addlast(T _v)
 	{
-		link* n = new link(m, p, start);
+		link* n = new link(_v, start);
 		end->next = n;
 		end = n;
 	}
@@ -39,20 +44,20 @@ protected:
 public:
 	list()
 	{
-		start = new link(0, 0);
+		start = new link();
 		start->next = start;
 		end = start;
 	}
 
 	list(const list& l)
 	{
-		start = new link(0, 0);
+		start = new link();
 		start->next = start;
 		end = start;
 		link* tmp = l.start->next;
 		while (tmp != l.start)
 		{
-			addlast(tmp->mult, tmp->pow);
+			addlast(tmp->val);
 			tmp = tmp->next;
 		}
 	}
@@ -65,26 +70,30 @@ public:
 		link* tmp = l.start->next;
 		while (tmp != l.start)
 		{
-			addlast(tmp->mult, tmp->pow);
+			addlast(tmp->val);
 			tmp = tmp->next;
 		}
 		return *this;
 	}
 
-	//void add(double m, int p)
+	//iterator* iterator() {
+	//	return new literator(first);
+	//}
+
+	//void add(T _v)
 	//{
 	//	link* tmp = start;
 	//	while (tmp->next != start)
 	//	{
-	//		if (tmp->next->pow > p)
+	//		if (tmp->next->val > _v.pow)
 	//		{
-	//			link* n = new link(m, p, tmp->next);
+	//			link* n = new link(_v, tmp->next);
 	//			tmp->next = n;
 	//			return;
 	//		}
 	//		tmp = tmp->next;
 	//	}
-	//	addlast(m, p);
+	//	addlast(_v);
 	//}
 
 	~list()
@@ -97,3 +106,32 @@ public:
 		}
 	}
 };
+
+//template<typename T>
+//class iterator
+//{
+//public:
+//	virtual bool hasnext() = 0;
+//	virtual T next() = 0;
+//};
+//
+//template<typename T>
+//class literator : public iterator
+//{
+//	link<T>* t;
+//	link<T>* first;
+//public:
+//	literator(link<T>* first)
+//	{
+//		this->first = first;
+//		t = first->next;
+//	}
+//	bool hasnext() { return t != first; }
+//	T next()
+//	{
+//		if (t == first) throw - 1;
+//		T val = t->val;
+//		t = t->next;
+//		return val;
+//	}
+//};
