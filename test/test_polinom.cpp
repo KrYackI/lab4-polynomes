@@ -51,9 +51,30 @@ TEST(polinom, p)
 	//l3.add(6, 3);
 	//l3.add(4, 3);
 	ifstream in("poli.txt");
+	string s;
 	in >> l1;
-	in >> l2;
-	l3 = l1 * l2;
+	in >> s;
+	switch (s[0])
+	{
+	case '+':
+	{
+		in >> l2;
+		l3 = l1 + l2;
+		break;
+	}
+	case '-':
+	{
+		in >> l2;
+		l3 = l1 - l2;
+		break;
+	}
+	case '*':
+	{
+		in >> l2;
+		l3 = l1 * l2;
+		break;
+	}
+	}
 	l3.calc(2, 3, 0.5);
 	ofstream out("resp.txt");
 	out << l3;
